@@ -40,3 +40,68 @@ transactions.
 
 You can set the environment variable BC to the config file for the ByzCoin
 you are currently working with. (Client apps should follow this same standard.)
+
+## Generating a new keypair
+
+```
+$ bcadmin key
+```
+
+Generates a new keypair and prints the result in the console
+
+Optional flags:
+
+-save file.txt            Outputs the key in file.txt instead of stdin
+## Adding a new darc
+
+```
+$ bcadmin darc_add -bc $file
+```
+
+Adds a new darc with a random keypair for both signing and evolving it.
+
+Optional flags:
+
+-out_id file.txt          Outputs the ID of the darc in file.txt
+
+-out_key file.txt         Outputs the key of the darc in file.txt
+
+-out_desc file.txt        Outputs the full description of the darc in file.txt
+
+-owner key:%x             Creates the darc the the mentioned key as owner (sign & evolve)
+
+-darc darc:%x             Creates the darc using the mentioned darc for creation (uses Genedis node by default)
+
+-sign key:%x              Uses this key to sign the transaction (mandatory if -darc is used)
+
+## Showing a darc
+
+```
+$ bcadmin darc_show -bc $file -id darc:%x
+```
+
+Shows the darc for which BaseID is the one specified after the -id flags
+
+Optional flags:
+
+-save file.txt            Outputs the description of the darc in file.txt instead of stdin
+
+## Editing the rules of a darc
+
+```
+$ bcadmin darc_rule_add $action -bc $file -identity $expr -darc darc:%x -signer key:%x
+```
+
+Adds a new rule to the mentioned darcs
+
+```
+$ bcadmin darc_rule_update $action -bc $file -identity $expr -darc darc:%x -signer key:%x
+```
+
+Updates the said rule in the mentioned darc
+
+```
+$ bcadmin darc_rule_delete $action -bc $file -darc darc:%x -signer key:%x 
+```
+
+Deletes the said rule in the mentioned darc
